@@ -150,22 +150,22 @@ var popularRecipeRawData = {
   ],
   'reviews': [
     {
-      'username': '@username',
+      'username': 'Quốc Đại',
       'review':
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
     {
-      'username': '@username',
+      'username': 'Nam Lê',
       'review':
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
     {
-      'username': '@username',
+      'username': 'Tây Trương',
       'review':
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
     {
-      'username': '@username',
+      'username': 'Cao Tè',
       'review':
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     },
@@ -231,22 +231,22 @@ var featuredRecipeRawData = [
     ],
     'reviews': [
       {
-        'username': '@username',
+        'username': 'Quang Lê',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Phượng Thị',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Quốc Đại',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Khoa Le',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
@@ -310,22 +310,22 @@ var featuredRecipeRawData = [
     ],
     'reviews': [
       {
-        'username': '@username',
+        'username': 'Đại Nè',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Anonymus',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Laydy Gaga',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Duy Nguyễn',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
@@ -389,22 +389,22 @@ var featuredRecipeRawData = [
     ],
     'reviews': [
       {
-        'username': '@username',
+        'username': 'Đại nè',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Nam Le',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Tây Trương',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Quốc Đại',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
@@ -468,22 +468,22 @@ var featuredRecipeRawData = [
     ],
     'reviews': [
       {
-        'username': '@username',
+        'username': 'Đại nè',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Nam Lê',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Tây Trương',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
       {
-        'username': '@username',
+        'username': 'Quốc Đại',
         'review':
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       },
