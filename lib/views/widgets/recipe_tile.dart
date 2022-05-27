@@ -12,7 +12,8 @@ class RecipeTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipeDetailPage(data: data)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => RecipeDetailPage(data: data)));
       },
       child: Container(
         height: 90,
@@ -30,7 +31,8 @@ class RecipeTile extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: Colors.blueGrey,
-                image: DecorationImage(image: AssetImage(data.photo), fit: BoxFit.cover),
+                image: DecorationImage(
+                    image: AssetImage(data.photo), fit: BoxFit.cover),
               ),
             ),
             // Recipe Info
@@ -47,7 +49,8 @@ class RecipeTile extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 12),
                       child: Text(
                         data.title,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontFamily: 'inter'),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontFamily: 'inter'),
                       ),
                     ),
                     // Recipe Calories and Time
