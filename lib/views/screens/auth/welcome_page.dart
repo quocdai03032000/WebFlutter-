@@ -32,16 +32,21 @@ class WelcomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // Image.asset(
+                      //   'assets/images/logo2.png',
+                      //   fit: BoxFit.cover,
+                      //   width: 150,
+                      // ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 16),
-                        child: Text('Đói Chứ?',
+                        child: Text('Yummy',
                             style: TextStyle(
                                 fontFamily: 'inter',
                                 fontWeight: FontWeight.w700,
                                 fontSize: 32,
                                 color: Colors.white)),
                       ),
-                      Text("Luôn Giúp Bạn Khi Bạn Đói",
+                      Text("Nơi giúp bạn nấu các món ăn tuyệt vời",
                           style: TextStyle(color: Colors.white)),
                     ],
                   ),
@@ -123,7 +128,7 @@ class WelcomePage extends StatelessWidget {
                         child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                            text: 'Với việc tham gia Đói Chứ, bạn đồng ý với ',
+                            text: 'Với việc tham gia "Yummy", bạn đồng ý với ',
                             style: TextStyle(
                                 color: Colors.white.withOpacity(0.6),
                                 height: 150 / 100),
