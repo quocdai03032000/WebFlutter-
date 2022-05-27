@@ -20,11 +20,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('Hungry?', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w700)),
+        title: Text('Đói Chứ?',
+            style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w700)),
         showProfilePhoto: true,
-        profilePhoto: AssetImage('assets/images/pp.png'),
+        profilePhoto: AssetImage('assets/images/profile2.jpg'),
         profilePhotoOnPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ProfilePage()));
         },
       ),
       body: ListView(
@@ -47,7 +49,8 @@ class HomePage extends StatelessWidget {
                     // Search Bar
                     DummySearchBar(
                       routeTo: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchPage()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SearchPage()));
                       },
                     ),
                     // Delicious Today - Header
@@ -59,15 +62,23 @@ class HomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Delicious Today',
-                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'inter'),
+                            'Món ngon hôm nay',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'inter'),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => DeliciousTodayPage()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => DeliciousTodayPage()));
                             },
-                            child: Text('see all'),
-                            style: TextButton.styleFrom(primary: Colors.white, textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                            child: Text('Xem tất cả'),
+                            style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                textStyle: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14)),
                           ),
                         ],
                       ),
@@ -88,7 +99,8 @@ class HomePage extends StatelessWidget {
                           );
                         },
                         itemBuilder: (context, index) {
-                          return FeaturedRecipeCard(data: featuredRecipe[index]);
+                          return FeaturedRecipeCard(
+                              data: featuredRecipe[index]);
                         },
                       ),
                     ),
@@ -108,7 +120,7 @@ class HomePage extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 16),
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'Today recomendation based on your taste...',
+                    'Đề xuất món ngon hôm nay...',
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -125,7 +137,8 @@ class HomePage extends StatelessWidget {
                       return SizedBox(width: 16);
                     },
                     itemBuilder: (context, index) {
-                      return RecommendationRecipeCard(data: recommendationRecipe[index]);
+                      return RecommendationRecipeCard(
+                          data: recommendationRecipe[index]);
                     },
                   ),
                 )
@@ -144,15 +157,22 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Newly Posted',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, fontFamily: 'inter'),
+                      'Bài mới nhất',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'inter'),
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewlyPostedPage()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => NewlyPostedPage()));
                       },
-                      child: Text('see all'),
-                      style: TextButton.styleFrom(primary: Colors.black, textStyle: TextStyle(fontWeight: FontWeight.w400, fontSize: 14)),
+                      child: Text('Xem tất cả'),
+                      style: TextButton.styleFrom(
+                          primary: Colors.black,
+                          textStyle: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 14)),
                     ),
                   ],
                 ),
