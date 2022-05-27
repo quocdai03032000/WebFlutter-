@@ -16,7 +16,8 @@ class RecipeDetailPage extends StatefulWidget {
   _RecipeDetailPageState createState() => _RecipeDetailPageState();
 }
 
-class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProviderStateMixin {
+class _RecipeDetailPageState extends State<RecipeDetailPage>
+    with TickerProviderStateMixin {
   TabController _tabController;
   ScrollController _scrollController;
 
@@ -74,7 +75,11 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
             brightness: Brightness.dark,
             elevation: 0,
             centerTitle: true,
-            title: Text('Search Recipe', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w400, fontSize: 16)),
+            title: Text('Tìm kiếm công thức',
+                style: TextStyle(
+                    fontFamily: 'inter',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16)),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios, color: Colors.white),
               onPressed: () {
@@ -82,7 +87,10 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
               },
             ),
             actions: [
-              IconButton(onPressed: () {}, icon: SvgPicture.asset('assets/icons/bookmark.svg', color: Colors.white)),
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset('assets/icons/bookmark.svg',
+                      color: Colors.white)),
             ],
           ),
         ),
@@ -104,7 +112,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
                         keyboardType: TextInputType.multiline,
                         minLines: 6,
                         decoration: InputDecoration(
-                          hintText: 'Write your review here...',
+                          hintText: 'Viết cảm nghĩ ở đây...',
                         ),
                         maxLines: null,
                       ),
@@ -128,7 +136,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
                             child: Container(
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Text('Post Review'),
+                                child: Text('Bình luận'),
                                 style: ElevatedButton.styleFrom(
                                   primary: AppColor.primary,
                                 ),
@@ -154,12 +162,17 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
           // Section 1 - Recipe Image
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => FullScreenImage(image: Image.asset(widget.data.photo, fit: BoxFit.cover))));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => FullScreenImage(
+                      image:
+                          Image.asset(widget.data.photo, fit: BoxFit.cover))));
             },
             child: Container(
               height: 280,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(image: DecorationImage(image: AssetImage(widget.data.photo), fit: BoxFit.cover)),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(widget.data.photo), fit: BoxFit.cover)),
               child: Container(
                 decoration: BoxDecoration(gradient: AppColor.linearBlackTop),
                 height: 280,
@@ -208,13 +221,20 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
                   margin: EdgeInsets.only(bottom: 12, top: 16),
                   child: Text(
                     widget.data.title,
-                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600, fontFamily: 'inter'),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'inter'),
                   ),
                 ),
                 // Recipe Description
                 Text(
                   widget.data.description,
-                  style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 14, height: 150 / 100),
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.9),
+                      fontSize: 14,
+                      height: 150 / 100),
                 ),
               ],
             ),
@@ -233,17 +253,18 @@ class _RecipeDetailPageState extends State<RecipeDetailPage> with TickerProvider
               },
               labelColor: Colors.black,
               unselectedLabelColor: Colors.black.withOpacity(0.6),
-              labelStyle: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w500),
+              labelStyle:
+                  TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w500),
               indicatorColor: Colors.black,
               tabs: [
                 Tab(
-                  text: 'Ingridients',
+                  text: 'Công thức',
                 ),
                 Tab(
-                  text: 'Tutorial',
+                  text: 'Hướng dẫn',
                 ),
                 Tab(
-                  text: 'Reviews',
+                  text: 'Bình luận',
                 ),
               ],
             ),

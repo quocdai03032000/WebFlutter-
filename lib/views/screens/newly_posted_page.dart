@@ -15,7 +15,11 @@ class NewlyPostedPage extends StatelessWidget {
         backgroundColor: AppColor.primary,
         centerTitle: true,
         elevation: 0,
-        title: Text('Newly Posted', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w400, fontSize: 16)),
+        title: Text('Bài đăng mới',
+            style: TextStyle(
+                fontFamily: 'inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 16)),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {

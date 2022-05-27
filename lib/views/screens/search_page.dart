@@ -24,7 +24,11 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: AppColor.primary,
         elevation: 0,
         centerTitle: true,
-        title: Text('Search Recipe', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w400, fontSize: 16)),
+        title: Text('Tìm kiếm công thức',
+            style: TextStyle(
+                fontFamily: 'inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 16)),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
@@ -56,25 +60,35 @@ class _SearchPageState extends State<SearchPage> {
                         child: Container(
                           height: 50,
                           margin: EdgeInsets.only(right: 15),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: AppColor.primarySoft),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColor.primarySoft),
                           child: TextField(
                             controller: searchInputController,
                             onChanged: (value) {
                               print(searchInputController.text);
                               setState(() {});
                             },
-                            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400),
                             maxLines: 1,
                             textInputAction: TextInputAction.search,
                             decoration: InputDecoration(
-                              hintText: 'What do you want to eat?',
-                              hintStyle: TextStyle(color: Colors.white.withOpacity(0.2)),
-                              prefixIconConstraints: BoxConstraints(maxHeight: 20),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 17),
+                              hintText: 'Bạn muốn ăn gì nào?',
+                              hintStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.2)),
+                              prefixIconConstraints:
+                                  BoxConstraints(maxHeight: 20),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 17),
                               focusedBorder: InputBorder.none,
                               border: InputBorder.none,
                               prefixIcon: Visibility(
-                                visible: (searchInputController.text.isEmpty) ? true : false,
+                                visible: (searchInputController.text.isEmpty)
+                                    ? true
+                                    : false,
                                 child: Container(
                                   margin: EdgeInsets.only(left: 10, right: 12),
                                   child: SvgPicture.asset(
@@ -95,7 +109,10 @@ class _SearchPageState extends State<SearchPage> {
                           showModalBottomSheet(
                               context: context,
                               backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20))),
                               builder: (context) {
                                 return SearchFilterModal();
                               });
@@ -132,14 +149,19 @@ class _SearchPageState extends State<SearchPage> {
                         alignment: Alignment.topCenter,
                         child: TextButton(
                           onPressed: () {
-                            searchInputController.text = popularRecipeKeyword[index];
+                            searchInputController.text =
+                                popularRecipeKeyword[index];
                           },
                           child: Text(
                             popularRecipeKeyword[index],
-                            style: TextStyle(color: Colors.white.withOpacity(0.7), fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                                fontWeight: FontWeight.w400),
                           ),
                           style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.white.withOpacity(0.15), width: 1),
+                            side: BorderSide(
+                                color: Colors.white.withOpacity(0.15),
+                                width: 1),
                           ),
                         ),
                       );
@@ -160,7 +182,7 @@ class _SearchPageState extends State<SearchPage> {
                 Container(
                   margin: EdgeInsets.only(bottom: 15),
                   child: Text(
-                    'This is the result of your search..',
+                    'Kết quả tìm kiếm.',
                     style: TextStyle(color: Colors.grey, fontSize: 12),
                   ),
                 ),

@@ -12,7 +12,11 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: AppColor.primary,
         elevation: 0,
         centerTitle: true,
-        title: Text('My Profile', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w400, fontSize: 16)),
+        title: Text('Thông tin cá nhân',
+            style: TextStyle(
+                fontFamily: 'inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 16)),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
@@ -23,10 +27,16 @@ class ProfilePage extends StatelessWidget {
           TextButton(
             onPressed: () {},
             child: Text(
-              'Edit',
-              style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+              'Chỉnh sửa',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
             ),
-            style: TextButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+            style: TextButton.styleFrom(
+                primary: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100))),
           ),
         ],
       ),
@@ -54,15 +64,22 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.grey,
                       borderRadius: BorderRadius.circular(100),
                       // Profile Picture
-                      image: DecorationImage(image: AssetImage('assets/images/profile.jpg'), fit: BoxFit.cover),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/profile2.jpg'),
+                          fit: BoxFit.cover),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Change Profile Picture', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w600, color: Colors.white)),
+                      Text('Thay đổi ảnh đại diện',
+                          style: TextStyle(
+                              fontFamily: 'inter',
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white)),
                       SizedBox(width: 8),
-                      SvgPicture.asset('assets/icons/camera.svg', color: Colors.white),
+                      SvgPicture.asset('assets/icons/camera.svg',
+                          color: Colors.white),
                     ],
                   )
                 ],
@@ -80,23 +97,23 @@ class ProfilePage extends StatelessWidget {
                 UserInfoTile(
                   margin: EdgeInsets.only(bottom: 16),
                   label: 'Email',
-                  value: 'reinazahradummy@gmail.com',
+                  value: 'namle@gmail.com',
                 ),
                 UserInfoTile(
                   margin: EdgeInsets.only(bottom: 16),
-                  label: 'Full Name',
-                  value: 'Reina Zahra Azizah',
+                  label: 'Tên đầy đủ',
+                  value: 'Lê Hoàng Nam',
                 ),
                 UserInfoTile(
                   margin: EdgeInsets.only(bottom: 16),
-                  label: 'Subscription Type',
-                  value: 'Premium Subscription',
+                  label: 'Loại đăng ký',
+                  value: 'Premium',
                   valueBackground: AppColor.secondary,
                 ),
                 UserInfoTile(
                   margin: EdgeInsets.only(bottom: 16),
-                  label: 'Subscription Time',
-                  value: 'Until 22 Oct 2021',
+                  label: 'Thời gian đăng ký',
+                  value: '22/10/2022',
                 ),
               ],
             ),
