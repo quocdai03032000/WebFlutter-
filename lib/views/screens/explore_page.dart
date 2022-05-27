@@ -12,7 +12,8 @@ import 'package:hungry/views/widgets/recommendation_recipe_card.dart';
 
 class ExplorePage extends StatelessWidget {
   final Recipe popularRecipe = RecipeHelper.popularRecipe;
-  final List<Recipe> sweetFoodRecommendationRecipe = RecipeHelper.sweetFoodRecommendationRecipe;
+  final List<Recipe> sweetFoodRecommendationRecipe =
+      RecipeHelper.sweetFoodRecommendationRecipe;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +23,20 @@ class ExplorePage extends StatelessWidget {
         brightness: Brightness.dark,
         elevation: 0,
         centerTitle: false,
-        title: Text('Explore Recipe', style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w400, fontSize: 16)),
+        title: Text('Khám Phá Công Thức Mới',
+            style: TextStyle(
+                fontFamily: 'inter',
+                fontWeight: FontWeight.w400,
+                fontSize: 16)),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchPage()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => SearchPage()));
             },
-            icon: SvgPicture.asset('assets/icons/search.svg', color: Colors.white),
+            icon: SvgPicture.asset('assets/icons/search.svg',
+                color: Colors.white),
           ),
         ],
       ),
@@ -47,12 +54,23 @@ class ExplorePage extends StatelessWidget {
               spacing: 16,
               runSpacing: 16,
               children: [
-                CategoryCard(title: 'Healthy', image: AssetImage('assets/images/healthy.jpg')),
-                CategoryCard(title: 'Drink', image: AssetImage('assets/images/drink.jpg')),
-                CategoryCard(title: 'Seafood', image: AssetImage('assets/images/seafood.jpg')),
-                CategoryCard(title: 'Desert', image: AssetImage('assets/images/desert.jpg')),
-                CategoryCard(title: 'Spicy', image: AssetImage('assets/images/spicy.jpg')),
-                CategoryCard(title: 'Meat', image: AssetImage('assets/images/meat.jpg')),
+                CategoryCard(
+                    title: 'Healthy',
+                    image: AssetImage('assets/images/healthy.jpg')),
+                CategoryCard(
+                    title: 'Đồ uống',
+                    image: AssetImage('assets/images/drink.jpg')),
+                CategoryCard(
+                    title: 'Hải sản',
+                    image: AssetImage('assets/images/seafood.jpg')),
+                CategoryCard(
+                    title: 'Tráng miệng',
+                    image: AssetImage('assets/images/desert.jpg')),
+                CategoryCard(
+                    title: 'Đồ cay',
+                    image: AssetImage('assets/images/spicy.jpg')),
+                CategoryCard(
+                    title: 'Thịt', image: AssetImage('assets/images/meat.jpg')),
               ],
             ),
           ),
@@ -73,7 +91,7 @@ class ExplorePage extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 16),
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    'Todays sweet food to make your day happy ......',
+                    'Đồ ngọt sẽ làm bạn vui hơn đấy ......',
                     style: TextStyle(color: Colors.grey),
                   ),
                 ),
@@ -90,7 +108,8 @@ class ExplorePage extends StatelessWidget {
                       return SizedBox(width: 16);
                     },
                     itemBuilder: (context, index) {
-                      return RecommendationRecipeCard(data: sweetFoodRecommendationRecipe[index]);
+                      return RecommendationRecipeCard(
+                          data: sweetFoodRecommendationRecipe[index]);
                     },
                   ),
                 )

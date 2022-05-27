@@ -10,7 +10,8 @@ class RecommendationRecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipeDetailPage(data: data)));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => RecipeDetailPage(data: data)));
       },
       child: Container(
         width: 180,
@@ -36,7 +37,10 @@ class RecommendationRecipeCard extends StatelessWidget {
               padding: EdgeInsets.only(left: 4),
               child: Text(
                 data.title,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, fontFamily: 'inter'),
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'inter'),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -69,7 +73,7 @@ class RecommendationRecipeCard extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.only(left: 5),
                     child: Text(
-                      '25 min',
+                      '25 phút',
                       style: TextStyle(fontSize: 10),
                     ),
                   ),
