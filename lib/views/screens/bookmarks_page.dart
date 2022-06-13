@@ -152,7 +152,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                             color: Colors.red,
                             child: Icon(Icons.delete, color: Colors.white)),
                         onDismissed: (direction) {
-                          var recipe = bookmarkedRecipe[index].title;
+                          var recipe = bookmarkedRecipe[index];
                           showContent(context, recipe, index);
                           removeRecipe(index);
                         },
@@ -173,7 +173,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
 
   //Show message deleted
   showContent(context, recipe, index) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('$recipe deleted!'),
         action: SnackBarAction(
             label: "Undo Item",
@@ -199,7 +199,8 @@ class _BookmarksPageState extends State<BookmarksPage> {
   //RefreshList
   Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 1));
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text('refreshed!!!!')));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('refreshed!!!!')));
     return null;
   }
 
