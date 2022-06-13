@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: Text('Đói Chứ?',
+        title: Text('Yummy',
             style: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w700)),
         showProfilePhoto: true,
         profilePhoto: AssetImage('assets/images/profile2.jpg'),
