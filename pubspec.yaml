@@ -22,6 +22,8 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.2
+  firebase_core: ^1.17.1
+  firebase_auth: ^3.3.19
   flutter:
     sdk: flutter
   flutter_svg: ^0.22.0

@@ -75,7 +75,7 @@ class WelcomePage extends StatelessWidget {
                                       topRight: Radius.circular(20))),
                               isScrollControlled: true,
                               builder: (context) {
-                                return RegisterModal();
+                                return SignUpScreen();
                               },
                             );
                           },
@@ -108,7 +108,7 @@ class WelcomePage extends StatelessWidget {
                                       topRight: Radius.circular(20))),
                               isScrollControlled: true,
                               builder: (context) {
-                                return LoginModal();
+                                return SignInScreen();
                               },
                             );
                           },
