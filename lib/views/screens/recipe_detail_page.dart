@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hungry/models/core/recipe.dart';
 import 'package:hungry/views/screens/full_screen_image.dart';
@@ -7,6 +6,9 @@ import 'package:hungry/views/utils/AppColor.dart';
 import 'package:hungry/views/widgets/ingridient_tile.dart';
 import 'package:hungry/views/widgets/review_tile.dart';
 import 'package:hungry/views/widgets/step_tile.dart';
+import 'package:hungry/models/helper/recipe_helper.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RecipeDetailPage extends StatefulWidget {
   final Recipe data;
@@ -32,6 +34,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
   }
 
   Color appBarColor = Colors.transparent;
+  final db = FirebaseFirestore.instance;
+  String value;
 
   changeAppBarColor(ScrollController scrollController) {
     if (scrollController.position.hasPixels) {
@@ -102,51 +106,8 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
           onPressed: () {
             showDialog(
                 context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 150,
-                      color: Colors.white,
-                      child: TextField(
-                        keyboardType: TextInputType.multiline,
-                        minLines: 6,
-                        decoration: InputDecoration(
-                          hintText: 'Viết cảm nghĩ ở đây...',
-                        ),
-                        maxLines: null,
-                      ),
-                    ),
-                    actions: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 120,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('cancel'),
-                              style: TextButton.styleFrom(
-                                primary: Colors.grey[600],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                child: Text('Bình luận'),
-                                style: ElevatedButton.styleFrom(
-                                  primary: AppColor.primary,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  );
+                builder: (context) {
+                  return showReviewList(context, false, null);
                 });
           },
           child: Icon(Icons.edit),
@@ -297,20 +258,133 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                   );
                 },
               ),
-              // Reviews
-              ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: widget.data.reviews.length,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return ReviewTile(data: widget.data.reviews[index]);
+
+              //Reviews
+              // ListView.builder(
+              //   shrinkWrap: true,
+              //   padding: EdgeInsets.zero,
+              //   itemCount: widget.data.reviews.length,
+              //   physics: NeverScrollableScrollPhysics(),
+              //   itemBuilder: (context, index) {
+              //     return ReviewTile(data: widget.data.reviews[index]);
+              //   },
+              // )
+
+              StreamBuilder(
+                stream: db.collection('reviews').snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(top: 10),
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data?.docs?.length,
+                    itemBuilder: (context, int index) {
+                      DocumentSnapshot documentSnapshot =
+                          snapshot.data.docs[index];
+                      return ListTile(
+                        title: Text(documentSnapshot['user']),
+                        subtitle: Text(documentSnapshot['review']),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return showReviewList(
+                                  context, true, documentSnapshot);
+                            },
+                          );
+                        },
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete_outline,
+                          ),
+                          onPressed: () {
+                            // Here We Will Add The Delete Feature
+                            db
+                                .collection('reviews')
+                                .doc(documentSnapshot.id)
+                                .delete();
+                          },
+                        ),
+                      );
+                    },
+                  );
                 },
-              )
+              ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget showReviewList(
+      BuildContext context, bool isUpdate, DocumentSnapshot documentSnapshot) {
+    return AlertDialog(
+      content: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 150,
+        color: Colors.white,
+        child: TextField(
+          keyboardType: TextInputType.multiline,
+          minLines: 6,
+          decoration: InputDecoration(
+            hintText: 'Viết cảm nghĩ ở đây...',
+          ),
+          onChanged: (String _val) {
+            value = _val;
+          },
+          maxLines: null,
+        ),
+      ),
+      actions: [
+        Row(
+          children: [
+            Container(
+              width: 120,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('cancel'),
+                style: TextButton.styleFrom(
+                  primary: Colors.grey[600],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (isUpdate) {
+                      db
+                          .collection('reviews')
+                          .doc(documentSnapshot?.id)
+                          .update({
+                        'review': value,
+                      });
+                    } else {
+                      db
+                          .collection('reviews')
+                          .add({'user': 'NamLe', 'review': value});
+                    }
+                    Navigator.pop(context);
+                  },
+                  child: Text('Bình luận'),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.primary,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

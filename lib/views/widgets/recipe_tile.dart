@@ -86,6 +86,11 @@ class RecipeTile extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Container(
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 30),
+                        child:
+                            Icon(Icons.arrow_forward_ios, color: Colors.black)),
                   ],
                 ),
               ),
