@@ -132,18 +132,34 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hungry/views/reusable_widgets/reusable_widget.dart';
-import 'package:hungry/views/screens/home_page.dart';
+import 'package:hungry/views/widgets/modals/login_modal.dart';
 import 'package:hungry/views/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key key}) : super(key: key);
+  const SignUpScreen({Key key, this.onSubmit}) : super(key: key);
+  final ValueChanged<String> onSubmit;
 
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  // declare a GlobalKey
+  final _formKey = GlobalKey<FormState>();
+  // declare a variable to keep track of the input text
+  String _name = '';
+
+  void _submit() {
+    // validate all the form fields
+    if (_formKey.currentState.validate()) {
+      // on success, notify the parent widget
+      widget.onSubmit(_name);
+    }
+  }
+
+  void changeText(value) => setState(() => _name = value);
+
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
@@ -155,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Sign Up",
+          "Đăng ký",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
@@ -164,46 +180,94 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-            hexStringToColor("CB2B93"),
-            hexStringToColor("9546C4"),
-            hexStringToColor("5E61F4")
+            hexStringToColor("0A5550"),
+            hexStringToColor("094543"),
+            hexStringToColor("0A5550")
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
             padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: Column(
               children: <Widget>[
+                logoWidget("assets/images/logo2.png"),
+                const SizedBox(
+                  height: 30,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter UserName", Icons.person_outline, false,
-                    _userNameTextController),
+                reusableTextField(
+                    "UserName",
+                    Icons.person_outline,
+                    false,
+                    _userNameTextController,
+                    _userNameTextController.value.text,
+                    changeText),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Email Id", Icons.person_outline, false,
-                    _emailTextController),
+                reusableTextField(
+                    "Email Id",
+                    Icons.person_outline,
+                    false,
+                    _emailTextController,
+                    _emailTextController.value.text,
+                    changeText),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Password", Icons.lock_outlined, true,
-                    _passwordTextController),
+                reusableTextField(
+                    "Password",
+                    Icons.lock_outlined,
+                    true,
+                    _passwordTextController,
+                    _passwordTextController.value.text,
+                    changeText),
                 const SizedBox(
                   height: 20,
                 ),
-                firebaseUIButton(context, "Sign Up", () {
+                firebaseUIButton(context, "Đăng ký", () {
                   FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignInScreen()));
                   }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
+                    //print("Error ${error.toString()}");
+                    if (error.toString() ==
+                        "[firebase_auth/unknown] Given String is empty or null") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Thông tin không được để trống!",
+                              style: TextStyle(color: Colors.red))));
+                    } else if (error.toString() ==
+                        "[firebase_auth/invalid-email] The email address is badly formatted.") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Email không hợp lệ!",
+                              style: TextStyle(color: Colors.red))));
+                    } else if (error.toString() ==
+                        "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              "Password không đúng hoặc User không tồn tại!",
+                              style: TextStyle(color: Colors.red))));
+                    } else if (error.toString() ==
+                        "[firebase_auth/email-already-in-use] The email address is already in use by another account.") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Email đã tồn tại!",
+                              style: TextStyle(color: Colors.red))));
+                    }
+                    print(error.toString());
                   });
-                })
+                },
+                    _name.isNotEmpty
+                        ? _submit
+                        : () {
+                            return 'abc';
+                          })
               ],
             ),
           ))),

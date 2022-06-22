@@ -32,11 +32,11 @@ class WelcomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Image.asset(
-                      //   'assets/images/logo2.png',
-                      //   fit: BoxFit.cover,
-                      //   width: 150,
-                      // ),
+                      Image.asset(
+                        'assets/images/logo2.png',
+                        fit: BoxFit.cover,
+                        width: 150,
+                      ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 16),
                         child: Text('Yummy',

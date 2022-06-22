@@ -46,7 +46,7 @@ class SearchFilterModal extends StatelessWidget {
                   color: Colors.transparent,
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text('Cancel', style: TextStyle(color: Colors.grey)),
+                  child: Text('Hủy', style: TextStyle(color: Colors.grey)),
                 ),
               ),
             ],

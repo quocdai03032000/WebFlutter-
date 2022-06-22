@@ -107,20 +107,36 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hungry/views/reusable_widgets/reusable_widget.dart';
-import 'package:hungry/views/screens/home_page.dart';
+import 'package:hungry/views/screens/page_switcher.dart';
 import 'package:hungry/views/widgets/modals/reset_password.dart';
 import 'package:hungry/views/widgets/modals/register_modal.dart';
 import 'package:hungry/views/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key key}) : super(key: key);
+  const SignInScreen({Key key, this.onSubmit}) : super(key: key);
+  final ValueChanged<String> onSubmit;
 
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  // declare a GlobalKey
+  final _formKey = GlobalKey<FormState>();
+  // declare a variable to keep track of the input text
+  String _name = '';
+
+  void _submit() {
+    // validate all the form fields
+    if (_formKey.currentState.validate()) {
+      // on success, notify the parent widget
+      widget.onSubmit(_name);
+    }
+  }
+
+  void changeText(value) => setState(() => _name = value);
+
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   @override
@@ -131,9 +147,9 @@ class _SignInScreenState extends State<SignInScreen> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-          hexStringToColor("CB2B93"),
-          hexStringToColor("9546C4"),
-          hexStringToColor("5E61F4")
+          hexStringToColor("0A5550"),
+          hexStringToColor("094543"),
+          hexStringToColor("0A5550")
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
@@ -141,33 +157,67 @@ class _SignInScreenState extends State<SignInScreen> {
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/logo1.png"),
+                logoWidget("assets/images/logo2.png"),
                 const SizedBox(
                   height: 30,
                 ),
-                reusableTextField("Enter UserName", Icons.person_outline, false,
-                    _emailTextController),
+                reusableTextField(
+                    "UserName",
+                    Icons.person_outline,
+                    false,
+                    _emailTextController,
+                    _emailTextController.value.text,
+                    changeText),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Password", Icons.lock_outline, true,
-                    _passwordTextController),
+                reusableTextField(
+                    "Password",
+                    Icons.lock_outline,
+                    true,
+                    _passwordTextController,
+                    _passwordTextController.value.text,
+                    changeText),
                 const SizedBox(
                   height: 5,
                 ),
                 forgetPassword(context),
-                firebaseUIButton(context, "Sign In", () {
+                firebaseUIButton(context, "Đăng nhập", () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => PageSwitcher()));
                   }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
+                    //print("Error ${error.toString()}");
+                    if (error.toString() ==
+                        "[firebase_auth/unknown] Given String is empty or null") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Thông tin không được để trống!",
+                              style: TextStyle(color: Colors.red))));
+                    } else if (error.toString() ==
+                        "[firebase_auth/invalid-email] The email address is badly formatted.") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Email không hợp lệ!",
+                              style: TextStyle(color: Colors.red))));
+                    } else if (error.toString() ==
+                        "[firebase_auth/wrong-password] The password is invalid or the user does not have a password.") {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              "Password không đúng hoặc User không tồn tại!",
+                              style: TextStyle(color: Colors.red))));
+                    }
+                    print(error.toString());
                   });
-                }),
+                },
+                    _name.isNotEmpty
+                        ? _submit
+                        : () {
+                            return 'abc';
+                          }),
                 signUpOption()
               ],
             ),
@@ -181,7 +231,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have account?",
+        const Text("Bạn không có tài khoản?",
             style: TextStyle(color: Colors.white70)),
         GestureDetector(
           onTap: () {
@@ -189,7 +239,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 MaterialPageRoute(builder: (context) => SignUpScreen()));
           },
           child: const Text(
-            " Sign Up",
+            " Đăng ký",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         )
@@ -204,7 +254,7 @@ class _SignInScreenState extends State<SignInScreen> {
       alignment: Alignment.bottomRight,
       child: TextButton(
         child: const Text(
-          "Forgot Password?",
+          "Quên mật khẩu?",
           style: TextStyle(color: Colors.white70),
           textAlign: TextAlign.right,
         ),

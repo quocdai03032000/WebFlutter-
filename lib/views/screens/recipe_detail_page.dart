@@ -4,9 +4,7 @@ import 'package:hungry/models/core/recipe.dart';
 import 'package:hungry/views/screens/full_screen_image.dart';
 import 'package:hungry/views/utils/AppColor.dart';
 import 'package:hungry/views/widgets/ingridient_tile.dart';
-import 'package:hungry/views/widgets/review_tile.dart';
 import 'package:hungry/views/widgets/step_tile.dart';
-import 'package:hungry/models/helper/recipe_helper.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -22,6 +20,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
     with TickerProviderStateMixin {
   TabController _tabController;
   ScrollController _scrollController;
+  bool _isShown = true;
 
   @override
   void initState() {
@@ -65,6 +64,37 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
     return false;
   }
 
+  // void _delete(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext ctx) {
+  //         return AlertDialog(
+  //           title: const Text('Please Confirm'),
+  //           content: const Text('Are you sure to remove the box?'),
+  //           actions: [
+  //             // The "Yes" button
+  //             TextButton(
+  //                 onPressed: () {
+  //                   db.collection('reviews').doc(documentSnapshot.id).delete();
+  //                   setState(() {
+  //                     _isShown = false;
+  //                   });
+
+  //                   // Close the dialog
+  //                   Navigator.of(context).pop();
+  //                 },
+  //                 child: const Text('Yes')),
+  //             TextButton(
+  //                 onPressed: () {
+  //                   // Close the dialog
+  //                   Navigator.of(context).pop();
+  //                 },
+  //                 child: const Text('No'))
+  //           ],
+  //         );
+  //       });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +122,15 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
             ),
             actions: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    db.collection('listfav').add({
+                      'title': widget.data.title,
+                      'photo': widget.data.photo,
+                      'calories': widget.data.calories,
+                      'time': widget.data.time,
+                      'description': widget.data.description
+                    });
+                  },
                   icon: SvgPicture.asset('assets/icons/bookmark.svg',
                       color: Colors.white)),
             ],
@@ -290,25 +328,86 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                       return ListTile(
                         title: Text(documentSnapshot['user']),
                         subtitle: Text(documentSnapshot['review']),
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return showReviewList(
-                                  context, true, documentSnapshot);
-                            },
-                          );
-                        },
+                        // onTap: () {
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (BuildContext ctx) {
+                        //         return AlertDialog(
+                        //           title: const Text('Please Confirm'),
+                        //           content: const Text(
+                        //               'Are you sure to remove the box?'),
+                        //           actions: [
+                        //             // The "Yes" button
+                        //             TextButton(
+                        //                 onPressed: () {
+                        //                   db
+                        //                       .collection('reviews')
+                        //                       .doc(documentSnapshot.id)
+                        //                       .delete();
+                        //                   setState(() {
+                        //                     _isShown = false;
+                        //                   });
+
+                        //                   // Close the dialog
+                        //                   Navigator.of(context).pop();
+                        //                 },
+                        //                 child: const Text('Yes')),
+                        //             TextButton(
+                        //                 onPressed: () {
+                        //                   // Close the dialog
+                        //                   Navigator.of(context).pop();
+                        //                 },
+                        //                 child: const Text('No'))
+                        //           ],
+                        //         );
+                        //       });
+                        // },
                         trailing: IconButton(
                           icon: const Icon(
                             Icons.delete_outline,
                           ),
                           onPressed: () {
                             // Here We Will Add The Delete Feature
-                            db
-                                .collection('reviews')
-                                .doc(documentSnapshot.id)
-                                .delete();
+                            _isShown == true
+                                ? showDialog(
+                                    context: context,
+                                    builder: (BuildContext ctx) {
+                                      return AlertDialog(
+                                        title: const Text('Vui lòng xác nhận'),
+                                        content: const Text(
+                                            'Bạn có chắc muốn xóa bình luận này?'),
+                                        actions: [
+                                          // The "Yes" button
+                                          TextButton(
+                                              onPressed: () {
+                                                db
+                                                    .collection('reviews')
+                                                    .doc(documentSnapshot.id)
+                                                    .delete();
+                                                setState(() {
+                                                  _isShown = false;
+                                                });
+
+                                                // Close the dialog
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Có')),
+                                          TextButton(
+                                            onPressed: () {
+                                              // Close the dialog
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Hủy'),
+                                            style: TextButton.styleFrom(
+                                                primary: Colors.grey,
+                                                textStyle: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 14)),
+                                          ),
+                                        ],
+                                      );
+                                    })
+                                : _isShown = true;
                           },
                         ),
                       );
@@ -351,7 +450,7 @@ class _RecipeDetailPageState extends State<RecipeDetailPage>
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('cancel'),
+                child: Text('Hủy'),
                 style: TextButton.styleFrom(
                   primary: Colors.grey[600],
                 ),

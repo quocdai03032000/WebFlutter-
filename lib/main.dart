@@ -25,7 +25,7 @@
 // }
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hungry/views/widgets/modals/login_modal.dart';
+import 'package:hungry/views/screens/auth/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Yummy',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const SignInScreen(),
+      home: WelcomePage(),
     );
   }
 }

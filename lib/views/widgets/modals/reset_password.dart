@@ -4,13 +4,29 @@ import 'package:hungry/views/utils/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class ResetPassword extends StatefulWidget {
-  const ResetPassword({Key key}) : super(key: key);
+  const ResetPassword({Key key, this.onSubmit}) : super(key: key);
+  final ValueChanged<String> onSubmit;
 
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  // declare a GlobalKey
+  final _formKey = GlobalKey<FormState>();
+  // declare a variable to keep track of the input text
+  String _name = '';
+
+  void _submit() {
+    // validate all the form fields
+    if (_formKey.currentState.validate()) {
+      // on success, notify the parent widget
+      widget.onSubmit(_name);
+    }
+  }
+
+  void changeText(value) => setState(() => _name = value);
+
   TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -29,9 +45,9 @@ class _ResetPasswordState extends State<ResetPassword> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-            hexStringToColor("CB2B93"),
-            hexStringToColor("9546C4"),
-            hexStringToColor("5E61F4")
+            hexStringToColor("0A5550"),
+            hexStringToColor("094543"),
+            hexStringToColor("0A5550")
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
@@ -41,8 +57,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Email Id", Icons.person_outline, false,
-                    _emailTextController),
+                reusableTextField(
+                    "Email Id",
+                    Icons.person_outline,
+                    false,
+                    _emailTextController,
+                    _emailTextController.value.text,
+                    changeText),
                 const SizedBox(
                   height: 20,
                 ),
@@ -50,7 +71,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                   FirebaseAuth.instance
                       .sendPasswordResetEmail(email: _emailTextController.text)
                       .then((value) => Navigator.of(context).pop());
-                })
+                },
+                    _name.isNotEmpty
+                        ? _submit
+                        : () {
+                            return 'abc';
+                          })
               ],
             ),
           ))),

@@ -1,9 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hungry/views/utils/AppColor.dart';
 import 'package:hungry/views/widgets/user_info_tile.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePage();
+}
+
+class _ProfilePage extends State<ProfilePage> {
+  File image;
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,25 +75,42 @@ class ProfilePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 24),
             child: GestureDetector(
               onTap: () {
-                print('Code to open file manager');
+                //print('Code to open file manager');
+                pickImage();
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 130,
-                    height: 130,
-                    margin: EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(100),
-                      // Profile Picture
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/profile2.jpg'),
-                          fit: BoxFit.cover),
-                    ),
+                  // Container(
+                  //   width: 130,
+                  //   height: 130,
+                  //   margin: EdgeInsets.only(bottom: 15),
+                  //   // decoration: BoxDecoration(
+                  //   //   color: Colors.grey,
+                  //   //   borderRadius: BorderRadius.circular(100),
+                  //   //   // Profile Picture
+                  //   //   image: DecorationImage(
+                  //   //       image: AssetImage('assets/images/profile2.jpg'),
+                  //   //       fit: BoxFit.cover),
+                  //   // ),
+                  // ),
+                  // SizedBox(
+                  //   width: 120,
+                  //   height: 120,
+                  // ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: image != null
+                        ? Image.file(
+                            image,
+                            width: 150.0,
+                            height: 100.0,
+                            fit: BoxFit.cover,
+                          )
+                        : Text("Chưa có ảnh đại diện"),
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

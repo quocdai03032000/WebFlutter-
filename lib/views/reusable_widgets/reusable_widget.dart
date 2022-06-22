@@ -3,20 +3,26 @@ import 'package:flutter/material.dart';
 Image logoWidget(String imageName) {
   return Image.asset(
     imageName,
-    fit: BoxFit.fitWidth,
+    fit: BoxFit.cover,
     width: 240,
     height: 240,
-    color: Colors.white,
   );
 }
 
-TextField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {
-  return TextField(
+TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
+    TextEditingController controller, String value, Function changeText) {
+  return TextFormField(
     controller: controller,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter some text';
+      }
+      return 'value is invalid!';
+    },
+    onChanged: changeText,
     cursorColor: Colors.white,
     style: TextStyle(color: Colors.white.withOpacity(0.9)),
     decoration: InputDecoration(
@@ -39,7 +45,8 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
   );
 }
 
-Container firebaseUIButton(BuildContext context, String title, Function onTap) {
+Container firebaseUIButton(
+    BuildContext context, String title, Function onTap, Function submit) {
   return Container(
     width: MediaQuery.of(context).size.width,
     height: 50,
@@ -48,6 +55,7 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
     child: ElevatedButton(
       onPressed: () {
         onTap();
+        //submit();
       },
       child: Text(
         title,
